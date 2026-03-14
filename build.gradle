@@ -1,7 +1,7 @@
 buildscript {
   repositories { jcenter() }
   dependencies {
-    classpath 'com.github.jengelman.gradle.plugins:shadow:1.0.3'
+    classpath("com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:1.0.3")
   }
 }
 
