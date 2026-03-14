@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-	compile 'org.bouncycastle:bcprov-jdk15on:1.51'
+	compile 'org.bouncycastle:bcprov-jdk18on:1.82'
 }
 
 sourceSets {
