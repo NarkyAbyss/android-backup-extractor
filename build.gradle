@@ -1,21 +1,29 @@
-buildscript {
-  repositories { jcenter() }
-  dependencies {
-    classpath("com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:1.0.3")
-  }
+plugins {
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+    id 'java'
+    id 'application'
+    id 'maven-publish'
 }
 
-apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
+application.mainClass.set 'org.nick.abe.Main'
 
+group = 'org.nick.abe'
+
+var targetJavaVersion = JavaVersion.VERSION_1_8
+java {
+    sourceCompatibility = targetCompatibility = targetJavaVersion
+}
+
+compileJava {
+    options.release.set targetJavaVersion.majorVersion.toInteger()
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-	compile 'org.bouncycastle:bcprov-jdk15on:1.51'
-	compile 'org.kamranzafar:jtar:2.3'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.82'
 }
 
 sourceSets {
@@ -27,12 +35,15 @@ sourceSets {
 }
 
 shadowJar {
-	baseName = "abe"
+    minimize()
+    archiveBaseName.set 'abe'
 }
 
-jar {
-	manifest {
-        attributes("Main-Class": "org.nick.abe.Main")
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from(components.java)
+        }
     }
 }
 
